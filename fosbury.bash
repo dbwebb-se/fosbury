@@ -14,7 +14,7 @@
 SCRIPT=$( basename "$0" )
 
 # Current version
-VERSION="1.0.0"
+VERSION="0.0.1"
 
 
 
@@ -80,10 +80,21 @@ function version
 #
 function get-files
 {
+    OWNER="dbwebb-se"
+    REPO="fosbury"
+
     TEMPLATE="$1"
     FOLDER="$2"
 
-    echo "$TEMPLATE$FOLDER"
+    if ! mkdir "$FOLDER" >& /dev/null; then
+        echo "Given folder ($FOLDER) already exists"
+    fi
+
+    RESPONSE=$(curl -s -u "emilfolino" \
+        -H "Accept: application/vnd.github.v3+json" \
+        "https://api.github.com/repos/$OWNER/$REPO/contents/$TEMPLATE")
+
+    echo "$RESPONSE"
 }
 
 
@@ -106,7 +117,7 @@ do
         ;;
 
         *)
-            get-files "$*"
+            get-files "$@"
             exit 0
         ;;
 

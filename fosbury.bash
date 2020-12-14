@@ -25,13 +25,8 @@ function usage
 {
     local txt=(
 "Utility $SCRIPT for doing stuff."
-"Usage: $SCRIPT [options] <command> [arguments]"
-""
-"Command:"
-"  command1             Demo of command."
-"  command2 [anything]  Demo of command using arguments."
-"  calendar [events]    Print out current calendar with(out) events."
-""
+"Usage: $SCRIPT [template] [folder]"
+"Example: $SCRIPT javascript js-test"
 "Options:"
 "  --help, -h     Print help."
 "  --version, -h  Print version."
@@ -70,6 +65,11 @@ function version
     )
 
     printf "%s\n" "${txt[@]}"
+}
+
+function config-github
+{
+
 }
 
 
@@ -113,6 +113,11 @@ do
 
         --version | -v)
             version
+            exit 0
+        ;;
+
+        config)
+            config-github
             exit 0
         ;;
 
